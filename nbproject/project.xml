@@ -150,8 +150,8 @@
             </module-dependencies>
             <public-packages/>
             <class-path-extension>
-                <runtime-relative-path>ext/swingx-all-1.6.3.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/swingx-all-1.6.3.jar</binary-origin>
+                <runtime-relative-path>ext/swingx-all-1.6.5-1.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/swingx-all-1.6.5-1.jar</binary-origin>
             </class-path-extension>
         </data>
     </configuration>
