@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+AutoUpdate-Show-In-Client: false
+OpenIDE-Module: netbeans.tooldata.editor
+OpenIDE-Module-Implementation-Version: 0
+OpenIDE-Module-Localizing-Bundle: draganbjedov/netbeans/tooldata/Bundle.properties
+OpenIDE-Module-Requires: org.openide.windows.WindowManager
+
