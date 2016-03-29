@@ -1,7 +1,6 @@
 /**
  * modified by Herbert Roider <herbert@roider.at>
  */
-
 package draganbjedov.netbeans.tooldata.dataobject;
 
 import draganbjedov.netbeans.tooldata.view.TOOLDATATableModel;
@@ -410,7 +409,7 @@ public class TOOLDATADataObject extends MultiDataObject {
                 new_text.append(this.headerlines.get(i));
                 new_text.append("\n");
             }
-
+            new_text.append("\n");
             int channel = -1;
             int tool = -1;
             int edge = -1;
