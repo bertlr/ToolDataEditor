@@ -890,7 +890,8 @@ public final class TOOLDATAVisualElement extends JPanel implements MultiViewElem
     })
     private void init() {
         //Table
-        final RowNumberTable rowNumberTable = new RowNumberTable(table, false, "#");
+        final  org.jdesktop.swingx.JXTable rowNumberTable = table;
+        //rowNumberTable = table;
         tableScrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, rowNumberTable.getTableHeader());
         tableScrollPane.setRowHeaderView(rowNumberTable);
 
@@ -906,8 +907,8 @@ public final class TOOLDATAVisualElement extends JPanel implements MultiViewElem
         //table.getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         //table.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         table.setRowSelectionAllowed(true);
-        //table.setColumnSelectionAllowed(true);
-        //table.setCellSelectionEnabled(true);
+        //table.setColumnSelectionAllowed(false);
+        //table.setCellSelectionEnabled(false);
 
         /* Popravljalje visine redova zbog editovanja. Windows i Metal LAF nemaju margine u tekst poljima, a ostali imaju */
         LookAndFeel lookAndFeel = UIManager.getLookAndFeel();

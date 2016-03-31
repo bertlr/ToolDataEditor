@@ -1,8 +1,6 @@
 /**
  * modified by Herbert Roider <herbert@roider.at>
  */
-
-
 package draganbjedov.netbeans.tooldata.view;
 
 import java.awt.Color;
@@ -38,22 +36,26 @@ public class OddEvenCellRenderer extends DefaultTableCellRenderer {
         }
         JLabel l = (JLabel) comp;
         l.setToolTipText(null);
-        if (column == 4) {
-            
+        if (column == 3) {
+
             String lbl = "<html><p><img src=\"" + getClass().getResource("/draganbjedov/netbeans/tooldata/icons/cutting_edge.png") + "\"></p></html>\n";
             l.setToolTipText(lbl);
         }
-        if(column == 3){
-            
+        if (column == 2) {
+
             String lbl = "<html><p>";
-            lbl += "100  mill<br>\n";
+            lbl += "120  end mill<br>\n";
             lbl += "200  twist drill<br>\n";
-            lbl += "500  turning tool<br>\n";
+            lbl += "500  roughing turning tool<br>\n";
+            lbl += "510  finishing turning tool<br>\n";
+            lbl += "520  grooving turning tool<br>\n";
+            lbl += "530  parting turning tool<br>\n";
+            lbl += "540  thread turning<br>\n";
             lbl += "</p></html>";
             l.setToolTipText(lbl);
-            
+
         }
-        
+
         return comp;
     }
 
