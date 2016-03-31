@@ -890,10 +890,10 @@ public final class TOOLDATAVisualElement extends JPanel implements MultiViewElem
     })
     private void init() {
         //Table
-        final  org.jdesktop.swingx.JXTable rowNumberTable = table;
+        //final  org.jdesktop.swingx.JXTable rowNumberTable = table;
         //rowNumberTable = table;
-        tableScrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, rowNumberTable.getTableHeader());
-        tableScrollPane.setRowHeaderView(rowNumberTable);
+        tableScrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, table.getTableHeader());
+        tableScrollPane.setRowHeaderView(table);
 
         final ListSelectionListener listSelectionListener = new ListSelectionListener() {
             @Override
@@ -951,7 +951,7 @@ public final class TOOLDATAVisualElement extends JPanel implements MultiViewElem
             tableScrollPane.getViewport().setBackground(Color.WHITE);
             tableScrollPane.setBackground(Color.WHITE);
         } else {
-            rowNumberTable.setBackground(table.getTableHeader().getBackground());
+            table.setBackground(table.getTableHeader().getBackground());
         }
 
         final JTableHeader tableHeader = table.getTableHeader();
