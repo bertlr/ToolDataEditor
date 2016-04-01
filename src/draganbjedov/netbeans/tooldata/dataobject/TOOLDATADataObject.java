@@ -294,19 +294,15 @@ public class TOOLDATADataObject extends MultiDataObject {
                 this.headerlines = new ArrayList<>();
 
                 if (length > 0) {
-                    //ArrayList<Double> wkz = new ArrayList<>();
-                    ArrayList<ArrayList<Double>> tools = new ArrayList<ArrayList<Double>>();
+                    ArrayList<ArrayList<Double>> tools = new ArrayList<>();
                     ArrayList<Double> tool;
                     String text = document.getText(0, length);
                     InputStream is = new ByteArrayInputStream(text.getBytes());
-                    //String[] s = text.split("\n");
-                    //boolean first = true;
                     List<List<String>> values = new ArrayList<>();
 
                     int T = -1;
                     int D = -1;
                     int field = -1;
-                    //int channel = -1;
 
                     BufferedReader br = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
 
@@ -341,17 +337,14 @@ public class TOOLDATADataObject extends MultiDataObject {
                             for (int i = 0; i < 28; i++) {
                                 nt.add((double) 0);
                             }
-                            //nt.set(0, (double) channel);
                             nt.set(0, (double) f.tool);
                             nt.set(1, (double) f.edge);
                             nt.set(f.field + 1, f.value);
                             tools.add(nt);
                         }
-
-                        //values.add(splitLine(ss, separator, escapeChar));
                     }
                     for (int i = 0; i < tools.size(); i++) {
-                        List<String> v = new ArrayList<String>();
+                        List<String> v = new ArrayList<>();
                         tool = tools.get(i);
                         for (int j = 0; j < tool.size(); j++) {
                             if (j < 5 || j == 26) {
@@ -366,7 +359,7 @@ public class TOOLDATADataObject extends MultiDataObject {
                     model.setValues(values);
                 } else {
 
-                    model.setValues(new ArrayList<List<String>>());
+                    model.setValues(new ArrayList<>());
                 }
             }
         } catch (BadLocationException ex) {
@@ -379,81 +372,77 @@ public class TOOLDATADataObject extends MultiDataObject {
     }
 
     public void updateFile(TOOLDATATableModel model) {
-        if (!this.model.equals(model)) {
-            Lookup lookup = getCookieSet().getLookup();
-            DataEditorSupport dataEditorSupport = lookup.lookup(DataEditorSupport.class);
-            NbEditorDocument document;
-            if (dataEditorSupport.isDocumentLoaded()) {
-                document = (NbEditorDocument) dataEditorSupport.getDocument();
-            } else {
-                try {
-                    document = (NbEditorDocument) dataEditorSupport.openDocument();
-                } catch (IOException ex) {
-                    Exceptions.printStackTrace(ex);
-                    //TODO Unable to open file
-                    return;
-                }
-            }
+        if (this.model.equals(model)) {
+            return;
+        }
 
-            initDocument(document);
-            StringBuilder new_text = new StringBuilder();
-            //String new_text = new String();
-            for (int i = 0; i < this.headerlines.size(); i++) {
-                new_text.append(this.headerlines.get(i));
-                new_text.append("\n");
-            }
-            new_text.append("\n");
-            //int channel = -1;
-            int tool = -1;
-            int edge = -1;
-
+        Lookup lookup = getCookieSet().getLookup();
+        DataEditorSupport dataEditorSupport = lookup.lookup(DataEditorSupport.class);
+        NbEditorDocument document;
+        if (dataEditorSupport.isDocumentLoaded()) {
+            document = (NbEditorDocument) dataEditorSupport.getDocument();
+        } else {
             try {
-                for (int i = 0; i < model.getRowCount(); i++) {
-//                    int new_channel = Integer.parseInt(model.getValueAt(i, 0));
-//                    if (channel != new_channel) {
-//                        new_text.append("CHANDATA(" + String.valueOf(new_channel) + ")\n");
-//                        channel = new_channel;
-//                    }
-                    tool = Integer.parseInt(model.getValueAt(i, 0));
-                    edge = Integer.parseInt(model.getValueAt(i, 1));
-
-                    for (int j = 1; j <= 25; j++) {
-
-                        new_text.append("$TC_DP");
-                        new_text.append(String.valueOf(j));
-                        new_text.append("[");
-                        new_text.append(String.valueOf(tool));
-                        new_text.append(",");
-                        new_text.append(String.valueOf(edge));
-                        new_text.append("]=");
-                        if (j < 3 || j == 25) {
-                            new_text.append(String.valueOf(Integer.parseInt(model.getValueAt(i, j + 1))));
-                        } else {
-                            new_text.append(String.valueOf(Double.parseDouble(model.getValueAt(i, j + 1))));
-                        }
-                        new_text.append("\n");
-                    }
-
-                }
-            } catch (NumberFormatException nfe) {
-                //Exceptions.printStackTrace(nfe);
-                JOptionPane.showMessageDialog(org.openide.windows.WindowManager.getDefault().getMainWindow(), "Error: (tool=" + tool + ") " + nfe.getMessage());
-                return;
-
-            }
-            new_text.append("M17\n");
-            String s = new_text.toString();
-            try {
-
-                int length = document.getLength();
-
-                if (!document.getText(0, length).equals(s)) {
-                    document.replace(0, length, s, null);
-                    this.model = model.clone();
-                }
-            } catch (BadLocationException ex) {
+                document = (NbEditorDocument) dataEditorSupport.openDocument();
+            } catch (IOException ex) {
                 Exceptions.printStackTrace(ex);
+                //TODO Unable to open file
+                return;
             }
+        }
+
+        initDocument(document);
+        StringBuilder new_text = new StringBuilder();
+        //String new_text = new String();
+        for (int i = 0; i < this.headerlines.size(); i++) {
+            new_text.append(this.headerlines.get(i));
+            new_text.append("\n");
+        }
+        new_text.append("\n");
+        int tool = -1;
+        int edge = -1;
+
+        try {
+            for (int i = 0; i < model.getRowCount(); i++) {
+                tool = Integer.parseInt(model.getValueAt(i, 0));
+                edge = Integer.parseInt(model.getValueAt(i, 1));
+
+                for (int j = 1; j <= 25; j++) {
+
+                    new_text.append("$TC_DP");
+                    new_text.append(String.valueOf(j));
+                    new_text.append("[");
+                    new_text.append(String.valueOf(tool));
+                    new_text.append(",");
+                    new_text.append(String.valueOf(edge));
+                    new_text.append("]=");
+                    if (j < 3 || j == 25) {
+                        new_text.append(String.valueOf(Integer.parseInt(model.getValueAt(i, j + 1))));
+                    } else {
+                        new_text.append(String.valueOf(Double.parseDouble(model.getValueAt(i, j + 1))));
+                    }
+                    new_text.append("\n");
+                }
+
+            }
+        } catch (NumberFormatException nfe) {
+            //Exceptions.printStackTrace(nfe);
+            JOptionPane.showMessageDialog(org.openide.windows.WindowManager.getDefault().getMainWindow(), "Error: (tool=" + tool + ") " + nfe.getMessage());
+            return;
+
+        }
+        new_text.append("M17\n");
+        String s = new_text.toString();
+        try {
+
+            int length = document.getLength();
+
+            if (!document.getText(0, length).equals(s)) {
+                document.replace(0, length, s, null);
+                this.model = model.clone();
+            }
+        } catch (BadLocationException ex) {
+            Exceptions.printStackTrace(ex);
         }
     }
 
