@@ -56,7 +56,6 @@ import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
 import org.openide.util.lookup.ProxyLookup;
 import org.openide.windows.TopComponent;
-//import org.oxbow.swingbits.table.filter.TableRowFilterSupport;
 
 @MultiViewElement.Registration(
         displayName = "#LBL_TOOLDATA_VISUAL",
