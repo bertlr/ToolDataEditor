@@ -225,36 +225,6 @@ public class TOOLDATADataObject extends MultiDataObject {
                 } catch (IOException ex) {
                     Exceptions.printStackTrace(ex);
                 }
-                //<editor-fold defaultstate="collapsed" desc="comment">
-                //                File file = FileUtil.toFile(this.getPrimaryFile());
-                //                if (file.length() != 0) {
-                //                    try {
-                //                        List<String> s = this.getPrimaryFile().asLines();
-                //                        boolean first = true;
-                //                        List<List<String>> values = new ArrayList<List<String>>(s.size());
-                //                        for (String ss : s) {
-                //                            if (first) {
-                //                                String[] split = ss.split(",");
-                //                                ArrayList<String> headers = new ArrayList<String>(split.length);
-                //                                Collections.addAll(headers, split);
-                //                                tableModel.setHeaders(headers);
-                //                                first = false;
-                //                                continue;
-                //                            }
-                //                            String[] split = ss.split(",");
-                //                            ArrayList<String> rowData = new ArrayList<String>(split.length);
-                //                            Collections.addAll(rowData, split);
-                //                            values.add(rowData);
-                //                        }
-                //                        tableModel.setValues(values);
-                //                    } catch (IOException ex) {
-                //                        Exceptions.printStackTrace(ex);
-                //                    }
-                //                } else {
-                //                    tableModel.setHeaders(new ArrayList<String>());
-                //                    tableModel.setValues(new ArrayList<List<String>>());
-                //                }
-                //</editor-fold>
             }
             if (document != null) {
                 initDocument(document);
