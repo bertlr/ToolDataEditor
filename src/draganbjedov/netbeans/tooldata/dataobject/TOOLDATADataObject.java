@@ -46,6 +46,8 @@ import org.openide.util.NbBundle.Messages;
 import org.openide.windows.TopComponent;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 @Messages({
     "LBL_TOOLDATA_LOADER=Files of TOOLDATA"
@@ -130,6 +132,7 @@ public class TOOLDATADataObject extends MultiDataObject {
     private TOOLDATAVisualElement visualEditor;
 
     private ArrayList<String> headerlines;
+   // private boolean notify_table = true;
 
     public TOOLDATADataObject(FileObject pf, MultiFileLoader loader) throws DataObjectExistsException, IOException {
         super(pf, loader);
@@ -188,7 +191,7 @@ public class TOOLDATADataObject extends MultiDataObject {
             }
 
             private void updateTable() {
-                if (visualEditor != null && !visualEditor.isActivated()) {
+                if (visualEditor != null && !visualEditor.isActivated() ) {
                     visualEditor.updateTable();
                 }
             }
@@ -230,37 +233,36 @@ public class TOOLDATADataObject extends MultiDataObject {
                 initDocument(document);
                 int length = document.getLength();
 
-                List<String> header = new ArrayList<>();
-                //header.add("Channel");
-                header.add("T");
-                header.add("D");
-                header.add("Typ"); // $TC_DP1
-                header.add("Edge pos");
-                header.add("L1");
-                header.add("L2");
-                header.add("L3");
-                header.add("R1");
-                header.add("R2");
-                header.add("8");
-                header.add("9");
-                header.add("10");
-                header.add("11");
-                header.add("L1 Verschl.");
-                header.add("L2 Verschl.");
-                header.add("L3 Verschl.");
-                header.add("R1 Verschl.");
-                header.add("R2 Verschl.");
-                header.add("17");
-                header.add("18");
-                header.add("19");
-                header.add("20");
-                header.add("Base L1");
-                header.add("Base L2");
-                header.add("Base L3");
-                header.add("Tool clearance angle");
-                header.add("Use of tool inverse");
-
-                model.setHeaders(header);
+//                List<String> header = new ArrayList<>();
+//                //header.add("Channel");
+//                header.add("T");
+//                header.add("D");
+//                header.add("Typ"); // $TC_DP1
+//                header.add("Edge pos");
+//                header.add("L1");
+//                header.add("L2");
+//                header.add("L3");
+//                header.add("R1");
+//                header.add("R2");
+//                header.add("8");
+//                header.add("9");
+//                header.add("10");
+//                header.add("11");
+//                header.add("L1 Verschl.");
+//                header.add("L2 Verschl.");
+//                header.add("L3 Verschl.");
+//                header.add("R1 Verschl.");
+//                header.add("R2 Verschl.");
+//                header.add("17");
+//                header.add("18");
+//                header.add("19");
+//                header.add("20");
+//                header.add("Base L1");
+//                header.add("Base L2");
+//                header.add("Base L3");
+//                header.add("Tool clearance angle");
+//                header.add("Use of tool inverse");
+                //model.setHeaders(header);
                 this.headerlines = new ArrayList<>();
 
                 if (length > 0) {
@@ -337,14 +339,22 @@ public class TOOLDATADataObject extends MultiDataObject {
         } catch (IOException ioe) {
             Exceptions.printStackTrace(ioe);
         }
-        this.model = model.clone();
+        /**
+         * save a copy of the table model because to compare if data has
+         * changed.
+         *
+         */
+        //this.model = model.clone();
         model.fireTableStructureChanged();
     }
 
     public void updateFile(TOOLDATATableModel model) {
-        if (this.model.equals(model)) {
+        if(model == null){
             return;
         }
+//        if (this.model.equals(model)) {
+//            // return;
+//        }
 
         Lookup lookup = getCookieSet().getLookup();
         DataEditorSupport dataEditorSupport = lookup.lookup(DataEditorSupport.class);
@@ -360,7 +370,7 @@ public class TOOLDATADataObject extends MultiDataObject {
                 return;
             }
         }
-
+        
         initDocument(document);
         StringBuilder new_text = new StringBuilder();
         //String new_text = new String();
@@ -408,8 +418,10 @@ public class TOOLDATADataObject extends MultiDataObject {
             int length = document.getLength();
 
             if (!document.getText(0, length).equals(s)) {
+                //this.notify_table = false;
                 document.replace(0, length, s, null);
-                this.model = model.clone();
+                //this.notify_table = true;
+                //this.model = model.clone();
             }
         } catch (BadLocationException ex) {
             Exceptions.printStackTrace(ex);
@@ -509,4 +521,5 @@ public class TOOLDATADataObject extends MultiDataObject {
         return field;
 
     }
+
 }

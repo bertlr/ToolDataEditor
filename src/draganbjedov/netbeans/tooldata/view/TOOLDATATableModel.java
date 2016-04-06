@@ -1,7 +1,6 @@
 /**
  * modified by Herbert Roider <herbert@roider.at>
  */
-
 package draganbjedov.netbeans.tooldata.view;
 
 import draganbjedov.netbeans.tooldata.view.ccp.DropResult;
@@ -25,24 +24,54 @@ public class TOOLDATATableModel extends AbstractTableModel {
 
     public TOOLDATATableModel() {
         headers = new ArrayList<String>();
+
+        //List<String> header = new ArrayList<>();
+        //header.add("Channel");
+        headers.add("T");
+        headers.add("D");
+        headers.add("Typ"); // $TC_DP1
+        headers.add("Edge pos");
+        headers.add("L1");
+        headers.add("L2");
+        headers.add("L3");
+        headers.add("R1");
+        headers.add("R2");
+        headers.add("8");
+        headers.add("9");
+        headers.add("10");
+        headers.add("11");
+        headers.add("L1 Verschl.");
+        headers.add("L2 Verschl.");
+        headers.add("L3 Verschl.");
+        headers.add("R1 Verschl.");
+        headers.add("R2 Verschl.");
+        headers.add("17");
+        headers.add("18");
+        headers.add("19");
+        headers.add("20");
+        headers.add("Base L1");
+        headers.add("Base L2");
+        headers.add("Base L3");
+        headers.add("Tool clearance angle");
+        headers.add("Use of tool inverse");
+
         values = new ArrayList<List<String>>();
     }
 
-    public TOOLDATATableModel(List<String> headers) {
-        this.headers = headers;
-        values = new ArrayList<List<String>>();
-    }
-
-    public TOOLDATATableModel(List<List<String>> values, List<String> headers) {
-        this.values = values;
-        this.headers = headers;
-    }
-
+//    public TOOLDATATableModel(List<String> headers) {
+//        this.headers = headers;
+//        values = new ArrayList<List<String>>();
+//    }
+//
+//    public TOOLDATATableModel(List<List<String>> values, List<String> headers) {
+//        this.values = values;
+//        this.headers = headers;
+//    }
     /**
      * Adds empty row at end of table
      */
     public void addRow() {
-        List<String> data = new ArrayList<String>(headers.size());
+        List<String> data = new ArrayList<String>();
         for (int i = 0; i < headers.size(); i++) {
             try {
                 data.add("0");
@@ -73,7 +102,7 @@ public class TOOLDATATableModel extends AbstractTableModel {
      * @param row Row index
      */
     public void insertRow(int row) {
-        List<String> data = new ArrayList<String>(headers.size());
+        List<String> data = new ArrayList<String>();
         for (int i = 0; i < headers.size(); i++) {
             try {
                 data.add("0");
@@ -267,7 +296,7 @@ public class TOOLDATATableModel extends AbstractTableModel {
         }
 
         List<String> data = values.get(row);
-       
+
         data.set(column, (String) value);
         fireTableCellUpdated(row, column);
 
@@ -295,9 +324,9 @@ public class TOOLDATATableModel extends AbstractTableModel {
         return headers;
     }
 
-    public void setHeaders(List<String> headers) {
-        this.headers = headers;
-    }
+//    public void setHeaders(List<String> headers) {
+//        this.headers = headers;
+//    }
 
     @Override
     public int hashCode() {
@@ -319,9 +348,9 @@ public class TOOLDATATableModel extends AbstractTableModel {
         if (this.values != other.values && (this.values == null || !this.values.equals(other.values))) {
             return false;
         }
-        if (this.headers != other.headers && (this.headers == null || !this.headers.equals(other.headers))) {
-            return false;
-        }
+//        if (this.headers != other.headers && (this.headers == null || !this.headers.equals(other.headers))) {
+//            return false;
+//        }
         return true;
     }
 
@@ -333,7 +362,7 @@ public class TOOLDATATableModel extends AbstractTableModel {
             for (String header : headers) {
                 cloned.add(header);
             }
-            model.setHeaders(cloned);
+            //model.setHeaders(cloned);
         }
         if (values != null) {
             List<List<String>> cloned = new ArrayList<List<String>>(values.size());

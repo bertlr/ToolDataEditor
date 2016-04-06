@@ -39,6 +39,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellEditor;
 import javax.swing.text.JTextComponent;
@@ -65,7 +66,7 @@ import org.openide.windows.TopComponent;
         preferredID = "TooldataVisual",
         position = 1000)
 @Messages("LBL_TOOLDATA_VISUAL=Table")
-public final class TOOLDATAVisualElement extends JPanel implements MultiViewElement {
+public final class TOOLDATAVisualElement extends JPanel implements MultiViewElement, TableModelListener {
 
     private static final Clipboard CLIPBOARD = Toolkit.getDefaultToolkit().getSystemClipboard();
 
@@ -108,7 +109,7 @@ public final class TOOLDATAVisualElement extends JPanel implements MultiViewElem
 
         obj.setVisualEditor(this);
 
-        updateTable();
+        //updateTable();
     }
 
     @Override
@@ -341,7 +342,7 @@ public final class TOOLDATAVisualElement extends JPanel implements MultiViewElem
         }
         pasteAction.setEnabled(CLIPBOARD.isDataFlavorAvailable(TableRowTransferable.TOOLDATA_ROWS_DATA_FLAVOR));
 
-        tableModel.fireTableDataChanged();
+        //tableModel.fireTableDataChanged();
     }
 
     @Override
@@ -619,7 +620,8 @@ public final class TOOLDATAVisualElement extends JPanel implements MultiViewElem
         final JTableHeader tableHeader = table.getTableHeader();
         tableHeader.setReorderingAllowed(false);
 
-        tableModel.addTableModelListener((TableModelEvent e) -> obj.updateFile(tableModel));
+        //tableModel.addTableModelListener((TableModelEvent e) -> obj.updateFile(tableModel));
+        tableModel.addTableModelListener(this);
         table.setModel(tableModel);
         tableScrollPane.setViewportView(table);
 
@@ -741,5 +743,19 @@ public final class TOOLDATAVisualElement extends JPanel implements MultiViewElem
             ActionEvent evt = new ActionEvent(table, e.getID(), (String) getValue(Action.ACTION_COMMAND_KEY), e.getWhen(), e.getModifiers());
             ccpAction.actionPerformed(evt);
         }
+    }
+
+    @Override
+    public void tableChanged(TableModelEvent e) {
+        System.out.println(e.getType() + e.getColumn() + " " + e.getFirstRow() + " " + e.getLastRow());
+        //this.setEnabled(false);
+        //this.obj.readFile((TOOLDATATableModel) e.getSource());
+        if(e.getColumn() < 0 && e.getFirstRow() < 0 && e.getLastRow() < 0){
+            return;
+        }
+        
+        this.obj.updateFile(this.tableModel);
+        //this.setEnabled(true);
+
     }
 }
