@@ -233,36 +233,7 @@ public class TOOLDATADataObject extends MultiDataObject {
                 initDocument(document);
                 int length = document.getLength();
 
-//                List<String> header = new ArrayList<>();
-//                //header.add("Channel");
-//                header.add("T");
-//                header.add("D");
-//                header.add("Typ"); // $TC_DP1
-//                header.add("Edge pos");
-//                header.add("L1");
-//                header.add("L2");
-//                header.add("L3");
-//                header.add("R1");
-//                header.add("R2");
-//                header.add("8");
-//                header.add("9");
-//                header.add("10");
-//                header.add("11");
-//                header.add("L1 Verschl.");
-//                header.add("L2 Verschl.");
-//                header.add("L3 Verschl.");
-//                header.add("R1 Verschl.");
-//                header.add("R2 Verschl.");
-//                header.add("17");
-//                header.add("18");
-//                header.add("19");
-//                header.add("20");
-//                header.add("Base L1");
-//                header.add("Base L2");
-//                header.add("Base L3");
-//                header.add("Tool clearance angle");
-//                header.add("Use of tool inverse");
-                //model.setHeaders(header);
+
                 this.headerlines = new ArrayList<>();
 
                 if (length > 0) {
