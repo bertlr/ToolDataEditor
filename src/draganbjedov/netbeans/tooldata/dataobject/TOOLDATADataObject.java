@@ -46,8 +46,6 @@ import org.openide.util.NbBundle.Messages;
 import org.openide.windows.TopComponent;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 
 @Messages({
     "LBL_TOOLDATA_LOADER=Files of TOOLDATA"
@@ -128,7 +126,7 @@ public class TOOLDATADataObject extends MultiDataObject {
     }
     private final UndoRedo.Manager undoRedoManager;
     private final DocumentListener documentListener;
-    private TOOLDATATableModel model;
+    //private TOOLDATATableModel model;
     private TOOLDATAVisualElement visualEditor;
 
     private ArrayList<String> headerlines;
@@ -243,9 +241,9 @@ public class TOOLDATADataObject extends MultiDataObject {
                     InputStream is = new ByteArrayInputStream(text.getBytes());
                     List<List<String>> values = new ArrayList<>();
 
-                    int T = -1;
-                    int D = -1;
-                    int field = -1;
+//                    int T = -1;
+//                    int D = -1;
+//                    int field = -1;
 
                     BufferedReader br = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
 
@@ -290,7 +288,7 @@ public class TOOLDATADataObject extends MultiDataObject {
                         List<String> v = new ArrayList<>();
                         tool = tools.get(i);
                         for (int j = 0; j < tool.size(); j++) {
-                            if (j < 5 || j == 26) {
+                            if (j < 4 || j == 26) {
                                 v.add(String.valueOf(tool.get(j).intValue()));
                             } else {
                                 v.add(String.valueOf(tool.get(j)));
@@ -323,9 +321,6 @@ public class TOOLDATADataObject extends MultiDataObject {
         if(model == null){
             return;
         }
-//        if (this.model.equals(model)) {
-//            // return;
-//        }
 
         Lookup lookup = getCookieSet().getLookup();
         DataEditorSupport dataEditorSupport = lookup.lookup(DataEditorSupport.class);

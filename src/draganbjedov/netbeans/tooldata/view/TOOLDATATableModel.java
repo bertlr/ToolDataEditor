@@ -268,9 +268,6 @@ public class TOOLDATATableModel extends AbstractTableModel {
             return null;
         }
         final List<String> data = values.get(rowIndex);
-        while (data.size() < headers.size()) {
-            data.add("");
-        }
         return data.get(columnIndex);
     }
 
@@ -320,9 +317,9 @@ public class TOOLDATATableModel extends AbstractTableModel {
         this.values = values;
     }
 
-    public List<String> getHeaders() {
-        return headers;
-    }
+//    public List<String> getHeaders() {
+//        return headers;
+//    }
 
 //    public void setHeaders(List<String> headers) {
 //        this.headers = headers;
@@ -362,7 +359,8 @@ public class TOOLDATATableModel extends AbstractTableModel {
             for (String header : headers) {
                 cloned.add(header);
             }
-            //model.setHeaders(cloned);
+            model.headers = cloned;
+//model.setHeaders(cloned);
         }
         if (values != null) {
             List<List<String>> cloned = new ArrayList<List<String>>(values.size());
@@ -373,7 +371,7 @@ public class TOOLDATATableModel extends AbstractTableModel {
                 }
                 cloned.add(clonedRow);
             }
-            model.setValues(cloned);
+            model.values = cloned;
         }
         return model;
     }
