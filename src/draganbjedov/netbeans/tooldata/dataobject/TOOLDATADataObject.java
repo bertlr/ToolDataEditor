@@ -130,7 +130,7 @@ public class TOOLDATADataObject extends MultiDataObject {
     private TOOLDATAVisualElement visualEditor;
 
     private ArrayList<String> headerlines;
-   // private boolean notify_table = true;
+    // private boolean notify_table = true;
 
     public TOOLDATADataObject(FileObject pf, MultiFileLoader loader) throws DataObjectExistsException, IOException {
         super(pf, loader);
@@ -189,8 +189,8 @@ public class TOOLDATADataObject extends MultiDataObject {
             }
 
             private void updateTable() {
-                if (visualEditor != null && !visualEditor.isActivated() ) {
-                    visualEditor.updateTable();
+                if (visualEditor != null && !visualEditor.isActivated()) {
+                    //visualEditor.updateTable();
                 }
             }
         };
@@ -227,82 +227,82 @@ public class TOOLDATADataObject extends MultiDataObject {
                     Exceptions.printStackTrace(ex);
                 }
             }
-            if (document != null) {
-                initDocument(document);
-                int length = document.getLength();
-
-
-                this.headerlines = new ArrayList<>();
-
-                if (length > 0) {
-                    ArrayList<ArrayList<Double>> tools = new ArrayList<>();
-                    ArrayList<Double> tool;
-                    String text = document.getText(0, length);
-                    InputStream is = new ByteArrayInputStream(text.getBytes());
-                    List<List<String>> values = new ArrayList<>();
-
-//                    int T = -1;
-//                    int D = -1;
-//                    int field = -1;
-
-                    BufferedReader br = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-
-                    String ss;
-                    while ((ss = br.readLine()) != null) {
-
-                        if (ss.startsWith("%")) {
-                            this.headerlines.add(ss);
-                            continue;
-
-                        }
-                        if (ss.trim().length() == 0) {
-                            continue;
-                        }
-
-                        Field f = this.parse_field(ss);
-                        if (f == null) {
-                            continue;
-                        }
-                        boolean found = false;
-                        for (int i = 0; i < tools.size(); i++) {
-                            tool = tools.get(i);
-                            if (tool.get(0) == f.tool && tool.get(1) == f.edge) {
-                                tool.set(f.field + 1, f.value);
-                                found = true;
-                                break;
-                            }
-
-                        }
-                        if (!found) {
-                            ArrayList<Double> nt = new ArrayList<>();
-                            for (int i = 0; i < 28; i++) {
-                                nt.add((double) 0);
-                            }
-                            nt.set(0, (double) f.tool);
-                            nt.set(1, (double) f.edge);
-                            nt.set(f.field + 1, f.value);
-                            tools.add(nt);
-                        }
-                    }
-                    for (int i = 0; i < tools.size(); i++) {
-                        List<String> v = new ArrayList<>();
-                        tool = tools.get(i);
-                        for (int j = 0; j < tool.size(); j++) {
-                            if (j < 4 || j == 26) {
-                                v.add(String.valueOf(tool.get(j).intValue()));
-                            } else {
-                                v.add(String.valueOf(tool.get(j)));
-                            }
-                        }
-                        values.add(v);
-
-                    }
-                    model.setValues(values);
-                } else {
-
-                    model.setValues(new ArrayList<>());
-                }
+            if (document == null) {
+                return;
             }
+            
+
+            //if (document != null) {
+            initDocument(document);
+            int length = document.getLength();
+           
+            this.headerlines = new ArrayList<>();
+
+            if (length > 0) {
+                ArrayList<ArrayList<Double>> tools = new ArrayList<>();
+                ArrayList<Double> tool;
+                String text = document.getText(0, length);
+                InputStream is = new ByteArrayInputStream(text.getBytes());
+                List<List<String>> values = new ArrayList<>();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+
+                String ss;
+                while ((ss = br.readLine()) != null) {
+
+                    if (ss.startsWith("%")) {
+                        this.headerlines.add(ss);
+                        continue;
+
+                    }
+                    if (ss.trim().length() == 0) {
+                        continue;
+                    }
+
+                    Field f = this.parse_field(ss);
+                    if (f == null) {
+                        continue;
+                    }
+                    boolean found = false;
+                    for (int i = 0; i < tools.size(); i++) {
+                        tool = tools.get(i);
+                        if (tool.get(0) == f.tool && tool.get(1) == f.edge) {
+                            tool.set(f.field + 1, f.value);
+                            found = true;
+                            break;
+                        }
+
+                    }
+                    if (!found) {
+                        ArrayList<Double> nt = new ArrayList<>();
+                        for (int i = 0; i < 28; i++) {
+                            nt.add((double) 0);
+                        }
+                        nt.set(0, (double) f.tool);
+                        nt.set(1, (double) f.edge);
+                        nt.set(f.field + 1, f.value);
+                        tools.add(nt);
+                    }
+                }
+                for (int i = 0; i < tools.size(); i++) {
+                    List<String> v = new ArrayList<>();
+                    tool = tools.get(i);
+                    for (int j = 0; j < tool.size(); j++) {
+                        if (j < 4 || j == 26) {
+                            v.add(String.valueOf(tool.get(j).intValue()));
+                        } else {
+                            v.add(String.valueOf(tool.get(j)));
+                        }
+                    }
+                    values.add(v);
+
+                }
+                model.setValues(values);
+            } else {
+
+                model.setValues(new ArrayList<>());
+            }
+
         } catch (BadLocationException ex) {
             Exceptions.printStackTrace(ex);
         } catch (IOException ioe) {
@@ -318,7 +318,7 @@ public class TOOLDATADataObject extends MultiDataObject {
     }
 
     public void updateFile(TOOLDATATableModel model) {
-        if(model == null){
+        if (model == null) {
             return;
         }
 
@@ -336,7 +336,7 @@ public class TOOLDATADataObject extends MultiDataObject {
                 return;
             }
         }
-        
+
         initDocument(document);
         StringBuilder new_text = new StringBuilder();
         //String new_text = new String();
