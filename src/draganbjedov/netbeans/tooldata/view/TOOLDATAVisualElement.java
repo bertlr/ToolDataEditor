@@ -584,6 +584,9 @@ public final class TOOLDATAVisualElement extends JPanel implements MultiViewElem
          */
         table.putClientProperty(USE_DTCR_COLORMEMORY_HACK, false);
 
+        // enable printing support for the table component:
+        table.putClientProperty("print.printable", true); // NOI18N
+
         table.setRowHeight(lafNotExpand ? 25 : 27);
 
         table.setShowGrid(true);
@@ -750,10 +753,10 @@ public final class TOOLDATAVisualElement extends JPanel implements MultiViewElem
         System.out.println(e.getType() + e.getColumn() + " " + e.getFirstRow() + " " + e.getLastRow());
         //this.setEnabled(false);
         //this.obj.readFile((TOOLDATATableModel) e.getSource());
-        if(e.getColumn() < 0 && e.getFirstRow() < 0 && e.getLastRow() < 0){
+        if (e.getColumn() < 0 && e.getFirstRow() < 0 && e.getLastRow() < 0) {
             return;
         }
-        
+
         this.obj.updateFile(this.tableModel);
         //this.setEnabled(true);
 
