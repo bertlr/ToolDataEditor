@@ -64,7 +64,7 @@ import org.openide.windows.TopComponent;
         mimeType = "text/x-tooldata",
         persistenceType = TopComponent.PERSISTENCE_NEVER,
         preferredID = "TooldataVisual",
-        position = 1000)
+        position = 3000)
 @Messages("LBL_TOOLDATA_VISUAL=Table")
 public final class TOOLDATAVisualElement extends JPanel implements MultiViewElement, TableModelListener {
 
@@ -369,10 +369,6 @@ public final class TOOLDATAVisualElement extends JPanel implements MultiViewElem
         return CloseOperationState.STATE_OK;
     }
 
-    @Messages({
-        "BUTTON_CLEAR_FILTERS=Clear all filters",
-        "BUTTON_COL_WIDTH=Set column widths"
-    })
     private void createToolBar() {
         toolbar.setFloatable(false);
 
