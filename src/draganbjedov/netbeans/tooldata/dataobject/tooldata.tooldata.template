@@ -1,6 +1,5 @@
+%_N_TO1_TOA_INI
 
-
-CHANDATA(1)
 $TC_DP1[1,1]=510
 $TC_DP2[1,1]=7
 $TC_DP3[1,1]=0

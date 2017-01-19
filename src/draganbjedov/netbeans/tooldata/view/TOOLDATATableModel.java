@@ -79,6 +79,10 @@ public class TOOLDATATableModel extends AbstractTableModel {
                 System.err.println("Add row Exception: " + ex);
             }
         }
+        data.set(0, "1");
+        data.set(1, "1");
+        data.set(2, "510");
+        data.set(3, "9");
         values.add(data);
         fireTableRowsInserted(values.size() - 1, values.size() - 1);
     }
@@ -110,6 +114,11 @@ public class TOOLDATATableModel extends AbstractTableModel {
                 System.err.println("Add row Exception: " + ex);
             }
         }
+        data.set(0, "1");
+        data.set(1, "1");
+        data.set(2, "510");
+        data.set(3, "9");
+
         try {
             values.add(row, data);
         } catch (Exception e) {
@@ -320,11 +329,9 @@ public class TOOLDATATableModel extends AbstractTableModel {
 //    public List<String> getHeaders() {
 //        return headers;
 //    }
-
 //    public void setHeaders(List<String> headers) {
 //        this.headers = headers;
 //    }
-
     @Override
     public int hashCode() {
         int hash = 7;
