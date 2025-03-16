@@ -1,11 +1,3 @@
-
-Copyrights (C) Dragan Bjedov
-draganbjedov@gmail.com
-
-Copyrights (C) Herbert Roider <herbert@roider.at>
-
--------------------------------------------
-
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
